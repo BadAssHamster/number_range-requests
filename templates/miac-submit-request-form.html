@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row h-100 justify-content-center align-items-center">
+<form method="post">
+    {% csrf_token %}
+    <section>
+        <div class="form-text justify-content:center">
+            Выдать диапазон номеров
+            <br>
+            {{ submit_form.numbers }}
+        </div><br>
+        <button class="btn btn-success btn-block" type="submit">
+            Сохранить
+        </button>
+    </section>
+</form>
+</div>
+
+{% endblock %}

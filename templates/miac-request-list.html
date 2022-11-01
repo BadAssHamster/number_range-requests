@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+            <table class="table table-bordered" style="text-align:center">
+                <tr>
+                    <td class="td">id пользователя</td>
+                    <td class="td">Дата подачи заявки</td>
+                    <td class="td">Вид бланков</td>
+                    <td class="td">Количество</td>
+                    <td class="td">Статус заявки</td>
+                    <td class="td">Диапазон номеров</td>
+                    <td class="td">Дата выполнения заявки</td>
+                    <td class="td">Операции</td>
+                </tr>
+                {% for request in user_requests %}
+                <tr>
+                    <td class="td">{{ request.user_id.id }}</td>
+                    <td class="td">{{ request.date }}</td>
+                    <td class="td">{{ request.doc_type }}</td>
+                    <td class="td">{{ request.count }}</td>
+                    <td class="td">
+                        {% if request.status == 1%}
+                        Черновик
+                        {% elif request.status == 2%}
+                        Отправлена
+                        {% elif request.status == 3%}
+                        Выполнена
+                        {% endif %}
+                        </td>
+                    <td class="td">{{ request.numbers }}</td>
+                    <td class="td">{{ request.execution_date }}</td>
+                    <td class="td">
+                        <button class="btn btn-dark" type="submit" name="{{request.id}}_update" value="clicked">
+                            Редактировать
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+    </form>
+{% endblock %}

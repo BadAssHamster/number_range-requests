@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row h-100 justify-content-center align-items-center">
+<form method="post">
+    {% csrf_token %}
+    <section>
+        <div class="form-text">
+            Вид заявки
+            {{ form.doc_type}}
+        </div>
+        <div class="form-text">
+            Количество
+            {{ form.count}}
+        </div><br>
+        <button class="btn btn-success" type="submit">
+            Сохранить
+        </button>
+    </section>
+</form>
+</div>
+
+{% endblock %}
