@@ -1,26 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form name='request_list' method="post">
-        {% csrf_token %}
+    {% csrf_token %}
         <ul class="navbar-nav">
             <li class="nav-item">
                 <div class="row h-100 justify-content-end align-items-end" style="margin: 5px">
                 <button class="btn btn-primary" style="font-size: 18px !important;" name="create" value="1">
-                    Создать заявку</button></div>
+                    <a class="text-light" href="/form">Создать заявку</a>
+                </button></div>
             </li>
         </ul>
             <table class="table table-bordered" style="text-align:center">
                 <tr>
-                    <td class="td">Дата подачи заявки</td>
-                    <td class="td">Вид бланков</td>
-                    <td class="td">Количество</td>
-                    <td class="td">Статус заявки</td>
-                    <td class="td">Диапазон номеров</td>
-                    <td class="td">Операции</td>
+                    <th class="td">Дата подачи заявки</th>
+                    <th class="td">Вид бланков</th>
+                    <th class="td">Количество</th>
+                    <th class="td">Статус заявки</th>
+                    <th class="td">Диапазон номеров</th>
+                    <th class="td">Операции</th>
                 </tr>
                 {% for request in user_requests %}
                 <tr>
-                    <td class="td">{{ request.date }}</td>
+                    <td class="td">
+                        {% if request.date != None %}
+                            {{ request.date }}
+                        {% else %}
+
+                        {% endif %}
+                    </td>
                     <td class="td">{{ request.doc_type }}</td>
                     <td class="td">{{ request.count }}</td>
                     <td class="td">
@@ -32,21 +38,26 @@
                             Выполнена
                         {% endif %}
                     </td>
-                    <td class="td">{{ request.numbers }}</td>
+                    <td class="td">{% if request.numbers != None %}
+                            {{ request.numbers }}
+                        {% else %}
+
+                        {% endif %}</td>
                     <td class="td">
-                        <button class="btn btn-success" type="submit" name="{{request.id}}_send" value="clicked">
-                            Отправить
+                        {% if request.status == 1 %}
+                        <button class="btn btn-success" type="submit">
+                            <a class="text-light" href="/mo_submit_button/{{request.id}}">Отправить</a>
                         </button>
-                        <button class="btn btn-dark" type="submit" name="{{request.id}}_update" value="clicked">
-                            Редактировать
+                        <button class="btn btn-dark" type="submit">
+                            <a class="text-light" href="/mo_update_button/{{request.id}}">Редактировать</a>
                         </button>
-                        <button class="btn btn-danger" type="submit" name="{{request.id}}_delete" value="clicked">
-                            Удалить
+                        <button class="btn btn-danger" type="submit">
+                            <a class="text-light" href="/mo_delete_button/{{request.id}}" style="color=white">Удалить</a>
                         </button>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
             </table>
-    </form>
 
 {% endblock %}

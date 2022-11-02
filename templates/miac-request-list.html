@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
+    {% csrf_token %}
             <table class="table table-bordered" style="text-align:center">
                 <tr>
-                    <td class="td">id пользователя</td>
-                    <td class="td">Дата подачи заявки</td>
-                    <td class="td">Вид бланков</td>
-                    <td class="td">Количество</td>
-                    <td class="td">Статус заявки</td>
-                    <td class="td">Диапазон номеров</td>
-                    <td class="td">Дата выполнения заявки</td>
-                    <td class="td">Операции</td>
+                    <th class="td">id пользователя</th>
+                    <th class="td">Дата подачи заявки</th>
+                    <th class="td">Вид бланков</th>
+                    <th class="td">Количество</th>
+                    <th class="td">Статус заявки</th>
+                    <th class="td">Диапазон номеров</th>
+                    <th class="td">Дата выполнения заявки</th>
+                    <th class="td">Операции</th>
                 </tr>
                 {% for request in user_requests %}
                 <tr>
@@ -28,15 +27,29 @@
                         Выполнена
                         {% endif %}
                         </td>
-                    <td class="td">{{ request.numbers }}</td>
-                    <td class="td">{{ request.execution_date }}</td>
                     <td class="td">
-                        <button class="btn btn-dark" type="submit" name="{{request.id}}_update" value="clicked">
-                            Редактировать
+                        {% if request.numbers != None %}
+                            {{ request.numbers }}
+                        {% else %}
+
+                        {% endif %}
+                    </td>
+                    <td class="td">
+                        {% if request.execution_date != None %}
+                            {{ request.execution_date }}
+                        {% else %}
+
+                        {% endif %}
+                    </td>
+                    <td class="td">
+                        {% if request.status == 2%}
+                        <button class="btn btn-dark" type="submit">
+                            <a class="text-light" href="/miac-submit-form/{{request.id}}">Редактировать</a>
                         </button>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
             </table>
-    </form>
+
 {% endblock %}

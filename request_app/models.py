@@ -30,12 +30,6 @@ class Requests(models.Model):
     date = models.DateField(null=True, blank=True, verbose_name='Дата подачи заявки')
     execution_date = models.DateField(null=True, blank=True, verbose_name='Дата исполнения заявки')
 
-    STATUS_CHOICES = (
-    (1, 'Черновик'),
-    (2, 'Отправлена'),
-    (3, 'Выполнена')
-)
-
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
